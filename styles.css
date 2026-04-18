@@ -85,6 +85,10 @@ body::before {
     font-size: 1rem;
 }
 
+.updated-note {
+    color: rgba(31, 36, 48, 0.88);
+}
+
 .meta {
     margin: 0;
     color: rgba(31, 36, 48, 0.74);

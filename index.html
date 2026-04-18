@@ -8,6 +8,23 @@
     <script type="module" src="./app.js"></script>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <main class="shell">
+        <section class="panel">
+          <header class="header">
+            <h1 class="title">Словарик</h1>
+            <p class="subtitle">
+              20 слов, и три всегда берутся с конца списка. Кликни, чтобы отметить.
+              <br>
+              <span class="updated-note">Словарик обновлён <span id="updated-at" aria-live="polite"></span></span>
+            </p>
+            <p class="meta">Первый клик выделяет слово, второй клик вычёркивает его.</p>
+            <button type="button" class="reset-button" id="reset-button">Новые слова</button>
+          </header>
+
+          <section class="grid" id="grid" aria-label="Список слов"></section>
+        </section>
+      </main>
+    </div>
   </body>
 </html>

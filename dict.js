@@ -88,3 +88,5 @@ export const DICT = [
     "метро",
     "облако",
 ];
+
+export const UPDATED_AT = "18 апреля 2026";

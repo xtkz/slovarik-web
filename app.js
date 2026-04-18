@@ -1,4 +1,4 @@
-import { DICT } from './dict.js';
+import { DICT, UPDATED_AT } from './dict.js';
 
 const WORD_COUNT = 20;
 const TAIL_WORD_COUNT = 3;
@@ -7,7 +7,9 @@ const STORAGE_KEYS = {
     states: 'slovarik.states',
 };
 
-const root = document.querySelector('#app');
+const grid = document.querySelector('#grid');
+const resetButton = document.querySelector('#reset-button');
+const updatedAt = document.querySelector('#updated-at');
 
 function getRandomUniqueWords(arr, count) {
     const shuffled = [...arr];
@@ -42,8 +44,7 @@ function writeJson(key, value) {
 }
 
 function removeAppState() {
-    localStorage.removeItem(STORAGE_KEYS.selection);
-    localStorage.removeItem(STORAGE_KEYS.states);
+    localStorage.clear();
 }
 
 function isValidSelection(selection) {
@@ -104,45 +105,9 @@ function renderWord(word, status) {
     return button;
 }
 
-function renderApp(state) {
-    root.replaceChildren();
-
-    const shell = document.createElement('main');
-    shell.className = 'shell';
-
-    const panel = document.createElement('section');
-    panel.className = 'panel';
-
-    const header = document.createElement('header');
-    header.className = 'header';
-
-    const title = document.createElement('h1');
-    title.className = 'title';
-    title.textContent = 'Словарик';
-
-    const subtitle = document.createElement('p');
-    subtitle.className = 'subtitle';
-    subtitle.textContent = '20 слов, и три всегда берутся с конца списка. Кликни, чтобы отметить.';
-
-    const meta = document.createElement('p');
-    meta.className = 'meta';
-    meta.textContent = 'Первый клик выделяет слово, второй клик вычёркивает его.';
-
-    const resetButton = document.createElement('button');
-    resetButton.type = 'button';
-    resetButton.className = 'reset-button';
-    resetButton.textContent = 'Новые слова';
-    resetButton.addEventListener('click', () => {
-        removeAppState();
-        const nextState = createFreshState();
-        saveState(nextState.selection, nextState.states);
-        renderApp(nextState);
-    });
-
-    header.append(title, subtitle, meta, resetButton);
-
-    const grid = document.createElement('section');
-    grid.className = 'grid';
+function renderGrid(state) {
+    grid.replaceChildren();
+    updatedAt.textContent = UPDATED_AT;
 
     state.selection.forEach((word) => {
         const status = state.states[word] || '';
@@ -165,20 +130,24 @@ function renderApp(state) {
 
             state.states = nextStates;
             saveState(state.selection, state.states);
-            renderApp(state);
+            renderGrid(state);
         });
 
         grid.appendChild(button);
     });
-
-    panel.append(header, grid);
-    shell.appendChild(panel);
-    root.appendChild(shell);
 }
 
 function bootstrap() {
     const state = loadState();
-    renderApp(state);
+
+    resetButton.addEventListener('click', () => {
+        removeAppState();
+        const nextState = createFreshState();
+        saveState(nextState.selection, nextState.states);
+        renderGrid(nextState);
+    });
+
+    renderGrid(state);
 }
 
 bootstrap();
