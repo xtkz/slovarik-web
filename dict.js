@@ -87,6 +87,9 @@ export const DICT = [
     "щавель",
     "метро",
     "облако",
+    "платок",
+    "обед",
+    "магазин",
 ];
 
-export const UPDATED_AT = "18 апреля 2026";
+export const UPDATED_AT = "24 апреля 2026";
