@@ -90,6 +90,9 @@ export const DICT = [
     "платок",
     "обед",
     "магазин",
+    "потому что",
+    "так как",
+    "апрель",
 ];
 
-export const UPDATED_AT = "24 апреля 2026";
+export const UPDATED_AT = "30 апреля 2026";
